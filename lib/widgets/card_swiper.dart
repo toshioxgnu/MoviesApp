@@ -11,7 +11,6 @@ class CardSwiper extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height * 0.5,
-      color: Colors.white,
       child: Swiper(
         itemCount: 10,
         layout: SwiperLayout.STACK,
