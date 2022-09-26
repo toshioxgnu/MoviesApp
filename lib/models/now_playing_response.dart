@@ -17,9 +17,9 @@ class NowPLayingResponse {
 
   Dates dates;
   int page;
+  List<Movie> results;
   int totalPages;
   int totalResults;
-  List<Movie> results;
 
   factory NowPLayingResponse.fromJson(String str) =>
       NowPLayingResponse.fromMap(json.decode(str));
