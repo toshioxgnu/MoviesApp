@@ -16,7 +16,7 @@ class MovieSlider extends StatelessWidget {
               'Populares',
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Expanded(
@@ -49,7 +49,7 @@ class _MoviePoster extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, 'details'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: FadeInImage(
+              child: const FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
                 image: NetworkImage('https://via.placeholder.com/300x400'),
                 width: 130,
@@ -58,7 +58,7 @@ class _MoviePoster extends StatelessWidget {
               ),
             ),
           ),
-          Text(
+          const Text(
             'Star Wars el retorno de tus calzones ',
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
