@@ -43,7 +43,7 @@ class _MoviePoster extends StatelessWidget {
       width: 130,
       height: 190,
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
+      child: Stack(
         children: [
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details'),
@@ -53,15 +53,18 @@ class _MoviePoster extends StatelessWidget {
                 placeholder: AssetImage('assets/no-image.jpg'),
                 image: NetworkImage('https://via.placeholder.com/300x400'),
                 width: 130,
-                height: 190,
+                height: 270,
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          const Text(
-            'Star Wars el retorno de tus calzones ',
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              'Star Wars el retorno de tus calzones ',
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
