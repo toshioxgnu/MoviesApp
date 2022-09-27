@@ -22,7 +22,7 @@ class Movie {
 
   bool adult;
   bool video;
-  DateTime? releaseDate;
+  String? releaseDate;
   double popularity;
   double voteAverage;
   int id;
@@ -36,8 +36,16 @@ class Movie {
   String? posterPath;
 
   get fullPosterImg {
-    if (this.posterPath != null) {
+    if (posterPath != null) {
       return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+    }
+
+    return 'https://i.stack.imgur.com/GNhxO.png';
+  }
+
+  get fullBackdropPath {
+    if (backdropPath != null) {
+      return 'https://image.tmdb.org/t/p/w500/${this.backdropPath}';
     }
 
     return 'https://i.stack.imgur.com/GNhxO.png';
@@ -55,7 +63,7 @@ class Movie {
         overview: json["overview"],
         popularity: json["popularity"].toDouble(),
         posterPath: json["poster_path"],
-        releaseDate: DateTime.parse(json["release_date"]),
+        releaseDate: json["release_date"],
         title: json["title"],
         video: json["video"],
         voteAverage: json["vote_average"].toDouble(),
