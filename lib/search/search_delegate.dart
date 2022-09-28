@@ -29,7 +29,6 @@ class MovieSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     return Text('build results is not implemented');
   }
 
@@ -39,10 +38,14 @@ class MovieSearchDelegate extends SearchDelegate {
       return const _EmptyResults();
     }
 
+    // print('Peticion HTTP request');
+
     final moviesProvider = Provider.of<MoviesProvider>(context);
 
-    return FutureBuilder(
-      future: moviesProvider.searchMovie(query),
+    moviesProvider.getSuggestionsByQuery(query);
+
+    return StreamBuilder(
+      stream: moviesProvider.suggestionsStream,
       builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
         if (!snapshot.hasData) {
           return const _EmptyResults();

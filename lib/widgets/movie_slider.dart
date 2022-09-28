@@ -47,9 +47,9 @@ class _MovieSliderState extends State<MovieSlider> {
       height: 270,
       child: Column(
         children: [
-          if (this.widget.title != null)
+          if (widget.title != null)
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 widget.title!,
               ),
