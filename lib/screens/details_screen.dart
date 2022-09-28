@@ -22,10 +22,7 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               _PosterAndTitle(
-                title: movie.title,
-                originalTitle: movie.originalTitle,
-                rate: movie.voteAverage,
-                imgPath: movie.fullPosterImg,
+                movie: movie,
               ),
               _Overview(
                 overview: movie.overview,
@@ -86,17 +83,11 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  final String title;
-  final String originalTitle;
-  final double rate;
-  final String imgPath;
+  final Movie movie;
 
   const _PosterAndTitle({
     super.key,
-    required this.title,
-    required this.originalTitle,
-    required this.rate,
-    required this.imgPath,
+    required this.movie,
   });
 
   @override
@@ -109,12 +100,15 @@ class _PosterAndTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/no-image.jpg'),
-              image: NetworkImage(imgPath),
-              height: 130,
+          Hero(
+            tag: movie.heroId!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(movie.fullPosterImg),
+                height: 130,
+              ),
             ),
           ),
           const SizedBox(
@@ -126,13 +120,13 @@ class _PosterAndTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  movie.title,
                   style: textTheme.headline5,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  originalTitle,
+                  movie.originalTitle,
                   style: textTheme.headline6,
                   maxLines: 2,
                   overflow: TextOverflow.clip,
@@ -148,7 +142,7 @@ class _PosterAndTitle extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      rate.toString(),
+                      movie.voteAverage.toString(),
                       style: textTheme.caption,
                     )
                   ],

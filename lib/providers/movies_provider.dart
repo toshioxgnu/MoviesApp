@@ -1,5 +1,4 @@
 import '../models/models.dart';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +18,20 @@ class MoviesProvider extends ChangeNotifier {
     print('Movies Provider initialized');
     getOnDisplayMovies();
     getPopularMovies();
+  }
+
+  Future<String> _getJsonData(String endpoint, [int? page = 1]) async {
+    var url = Uri.https(
+      _baseURL,
+      endpoint,
+      {
+        'api_key': _apiKey,
+        'languaje': _language,
+        'page': '$page',
+      },
+    );
+    final response = await http.get(url);
+    return response.body;
   }
 
   getOnDisplayMovies() async {
@@ -44,20 +57,6 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> _getJsonData(String endpoint, [int? page = 1]) async {
-    var url = Uri.https(
-      _baseURL,
-      endpoint,
-      {
-        'api_key': _apiKey,
-        'languaje': _language,
-        'page': '$page',
-      },
-    );
-    final response = await http.get(url);
-    return response.body;
-  }
-
   Future<List<Cast>> getMovieCast(int movieId) async {
     if (moviesCast.containsKey(movieId)) return moviesCast[movieId]!;
 
@@ -67,5 +66,22 @@ class MoviesProvider extends ChangeNotifier {
 
     moviesCast[movieId] = creditsResponse.cast;
     return creditsResponse.cast;
+  }
+
+  Future<List<Movie>> searchMovie(String query) async {
+    var url = Uri.https(
+      _baseURL,
+      '3/search/movie',
+      {
+        'api_key': _apiKey,
+        'languaje': _language,
+        'query': query,
+      },
+    );
+
+    final response = await http.get(url);
+    final searchResponse = SearchResponse.fromJson(response.body);
+
+    return searchResponse.results;
   }
 }
